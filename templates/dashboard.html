@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stat-card glass-panel" style="border-left: 4px solid var(--primary-color);">
+            <div class="stat-details">
+                <p>Total Threats</p>
+                <h3 id="stat-total">{{ total }}</h3>
+            </div>
+            <div class="stat-icon text-primary">
+                <i class="fa-solid fa-shield-virus"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card glass-panel" style="border-left: 4px solid var(--warning-color);">
+            <div class="stat-details">
+                <p>Active Threats</p>
+                <h3 id="stat-active">{{ active }}</h3>
+            </div>
+            <div class="stat-icon text-warning">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card glass-panel" style="border-left: 4px solid var(--danger-color);">
+            <div class="stat-details">
+                <p>Critical Threats</p>
+                <h3 id="stat-critical">{{ critical }}</h3>
+            </div>
+            <div class="stat-icon text-danger">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card glass-panel" style="border-left: 4px solid var(--success-color);">
+            <div class="stat-details">
+                <p>Malware Alerts</p>
+                <h3 id="stat-malware">{{ malware }}</h3>
+            </div>
+            <div class="stat-icon text-success">
+                <i class="fa-solid fa-bug"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="glass-panel chart-container">
+            <canvas id="threatTrendsChart"></canvas>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-panel chart-container">
+            <canvas id="severityDistributionChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0">Real-Time Log Analyzer & Live Sniffer</h4>
+                <div>
+                    <button class="btn btn-danger me-2" onclick="resetData()" id="resetBtn">
+                        <i class="fa-solid fa-trash"></i> Reset Data
+                    </button>
+                    <button class="btn btn-warning me-2" onclick="startSniffer()" id="snifferBtn">
+                        <i class="fa-solid fa-satellite-dish"></i> Start Live Sniffer
+                    </button>
+                    <button class="btn btn-primary" onclick="uploadLog()">
+                        <i class="fa-solid fa-upload"></i> Analyze Log
+                    </button>
+                </div>
+            </div>
+            <form id="uploadForm">
+                <input type="file" id="logFile" class="form-control" accept=".csv,.txt" required>
+            </form>
+            <div id="uploadStatus" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Threat Intelligence Platform</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="light-mode">
+
+    <!-- Sidebar -->
+    <nav class="sidebar glass-panel">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-shield-halved"></i> ThreatIntel</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="{{ url_for('threats') }}"><i class="fa-solid fa-bug"></i> Threats</a></li>
+            <li><a href="{{ url_for('alerts') }}"><i class="fa-solid fa-bell"></i> Alerts</a></li>
+            <li><a href="{{ url_for('analytics') }}"><i class="fa-solid fa-chart-pie"></i> Analytics</a></li>
+            <li><a href="{{ url_for('reports') }}"><i class="fa-solid fa-file-pdf"></i> Reports</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg glass-panel mb-4">
+            <div class="container-fluid">
+                <span class="navbar-brand">Welcome, {{ session.get('username', 'Analyst') }}</span>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-danger me-3 pulse">Live Threats Active</span>
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('username', 'User') }}&background=random" class="rounded-circle" width="40" alt="Avatar">
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap & Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

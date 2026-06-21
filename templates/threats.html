@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Threat Management</h2>
+</div>
+
+<div class="glass-panel p-4">
+    <table class="table table-hover table-borderless">
+        <thead style="border-bottom: 1px solid var(--glass-border);">
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Severity</th>
+                <th>Source IP</th>
+                <th>Status</th>
+                <th>Detected At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for threat in threats %}
+            <tr>
+                <td>#{{ threat.id }}</td>
+                <td>{{ threat.category }}</td>
+                <td>
+                    {% if threat.severity == 'Critical' %}
+                        <span class="badge bg-danger">{{ threat.severity }}</span>
+                    {% elif threat.severity == 'High' %}
+                        <span class="badge bg-warning text-dark">{{ threat.severity }}</span>
+                    {% elif threat.severity == 'Medium' %}
+                        <span class="badge bg-primary">{{ threat.severity }}</span>
+                    {% else %}
+                        <span class="badge bg-success">{{ threat.severity }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ threat.source_ip }}</td>
+                <td>{{ threat.status }}</td>
+                <td>{{ threat.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No threats detected yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
