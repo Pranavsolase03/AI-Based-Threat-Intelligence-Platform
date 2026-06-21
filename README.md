@@ -65,10 +65,34 @@ The SQLite database (`threatintel.db`) will be automatically created in the `dat
 
 ---
 
+## 🧠 Machine Learning Training Flow
+
+If you are setting this project up from scratch or want to retrain the AI models on the NSL-KDD dataset, you must follow this exact execution flow before starting the web server.
+
+### Step 1: Download the Dataset
+Run `data.py` to automatically fetch the NSL-KDD dataset via kagglehub.
+```bash
+python data.py
+```
+
+### Step 2: Preprocess the Data
+Run `preprocessing.py` to clean the data, apply LabelEncoders to categorical features, scale the numerical data using StandardScaler, and save the processed dataset.
+```bash
+python preprocessing.py
+```
+
+### Step 3: Train the Models
+Run `train_model.py` to train the Machine Learning ensemble (XGBoost, Random Forest, Isolation Forest). This script will save the trained `.pkl` files into the `models/` directory so the Flask app can use them.
+```bash
+python train_model.py
+```
+
+---
+
 ## 🏃 Running the Application
 
-### 1. Start the Flask Server
-Ensure your virtual environment is activated, then run the main application file:
+### Start the Flask Server
+Once the models are trained and saved, you can start the main web application:
 ```bash
 python app.py
 ```
